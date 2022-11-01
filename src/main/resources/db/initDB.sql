@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS orders
     id SERIAL PRIMARY KEY ,
     user_id INTEGER,
     order_time TIMESTAMP ,
-    FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
     );
 
 --DROP TABLE IF EXISTS order_details;

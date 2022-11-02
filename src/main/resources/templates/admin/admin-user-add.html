@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <title>Добавить пользователя</title>
+    <meta charset="utf-8">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+<body>
+
+<nav class="navbar fixed-top navbar-expand-md bg-dark navbar-dark">
+    <a class="navbar-brand" >AdminPanel</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent" aria-controls="navbarNavAltMarkup"
+            aria-expanded="false" aria-label="Переключатель навигации">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="/pet/list">Питомцы</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="/item_type/list">Категории</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="/item/list">Товары</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="/user/list">Пользователи</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="/user/products">Обычный сайт</a>
+                </li>
+                <li class="nav-item" >
+                    <a class="nav-link" href="/logout">Выйти</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container table-responsive" style="margin-top: 50px ">
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
+            <h1 class="text-center"> Создать нового пользователя </h1>
+            <div class="card-body">
+                <form th:action="@{/user/create}" th:object="${user}" method="POST">
+                    <div class="form-group">
+                        <label> Имя </label>
+                        <input
+                                type="text"
+                                name="username"
+                                th:field="*{username}"
+                                class="form-control"
+                                placeholder="введите имя"
+                        />
+                    </div>
+                    <div class="form-group">
+                        <label> Пароль </label>
+                        <input
+                                type="password"
+                                name="password"
+                                th:field="*{password}"
+                                class="form-control"
+                                placeholder="200"
+                        />
+                    </div>
+                    <div class="form-group">
+                        <label> Email </label>
+                        <input
+                                type="email"
+                                name="email"
+                                th:field="*{email}"
+                                class="form-control"
+                                placeholder="введите email"
+                        />
+                    </div>
+
+                    <div class="form-group">
+                        <label> Роль </label>
+                        <select
+                                class="form-control"
+                                th:field="*{role}"
+                                id="dropOperator">
+                            <option value="0">select operator</option>
+                            <option
+                                    th:each="roleType : ${T(com.example.demo.model.enumerations.RoleType).values()}"
+                                    th:value="${roleType.name()}"
+                                    th:text="${roleType.name()}"
+                            ></option>
+                        </select>
+                    </div>
+
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-primary">
+                            Submit
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+<footer class="bg-dark fixed-bottom text-center text-white">
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+        © 2022 Copyright:
+        <a class="text-white" href="https://github.com/IvanCherepanov/JavaSpringCourseWork">Черепанов Иван Владимирович
+            ИКБО-01-20, 2022</a>
+    </div>
+</footer>
+</html>

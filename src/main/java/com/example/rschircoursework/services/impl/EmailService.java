@@ -20,38 +20,38 @@ import static com.example.rschircoursework.model.enumerations.MyValues.*;
 import static com.example.rschircoursework.model.enumerations.MyValues.EMAILSERVER;
 
 // TODO: 02.11.2022 раскомитить   конфиг тоже
-//@Service
-//public class EmailService {
-//
-//    private final JavaMailSender javaMailSender;
-//
-//
-//    @Autowired
-//    public EmailService(JavaMailSenderImpl javaMailSender) {
-//        this.javaMailSender = javaMailSender;
-//    }
-//
-//    @SneakyThrows
-//    @Async
-//    public void sendmail(String mail, String message){
-//        System.out.println("Preparation to send email...");
-//
-//        MimeMessage msg = javaMailSender.createMimeMessage();
-//        msg.setFrom(new InternetAddress(EMAILSERVER, false));
-//
-//        msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(mail));
-//
-//        msg.setSubject("AnimalShop. Новый заказ." + DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT)
-//                .format(LocalDateTime.now()));
-//
-//        MimeBodyPart messageBodyPart = new MimeBodyPart();
-//        messageBodyPart.setContent(message, "text/html; charset=UTF-8");
-//
-//        Multipart multipart = new MimeMultipart();
-//        multipart.addBodyPart(messageBodyPart);
-//        msg.setContent(multipart);
-//
-//        javaMailSender.send(msg);
-//        System.out.println("Email Send!");
-//    }
-//}
+@Service
+public class EmailService {
+
+    private final JavaMailSender javaMailSender;
+
+
+    @Autowired
+    public EmailService(JavaMailSenderImpl javaMailSender) {
+        this.javaMailSender = javaMailSender;
+    }
+
+    @SneakyThrows
+    @Async
+    public void sendmail(String mail, String message){
+        System.out.println("Preparation to send email...");
+
+        MimeMessage msg = javaMailSender.createMimeMessage();
+        msg.setFrom(new InternetAddress(EMAILSERVER, false));
+
+        msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(mail));
+
+        msg.setSubject("AnimalShop. Новый заказ." + DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT)
+                .format(LocalDateTime.now()));
+
+        MimeBodyPart messageBodyPart = new MimeBodyPart();
+        messageBodyPart.setContent(message, "text/html; charset=UTF-8");
+
+        Multipart multipart = new MimeMultipart();
+        multipart.addBodyPart(messageBodyPart);
+        msg.setContent(multipart);
+
+        javaMailSender.send(msg);
+        System.out.println("Email Send!");
+    }
+}

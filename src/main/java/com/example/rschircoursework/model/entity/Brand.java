@@ -18,7 +18,7 @@ public class Brand {
     private Long id;
 
     @Column(name = "item_brend_name")
-    private String brendName;
+    private String brandName;
 
     @Column(name = "sale_in_procent")
     private int sale;

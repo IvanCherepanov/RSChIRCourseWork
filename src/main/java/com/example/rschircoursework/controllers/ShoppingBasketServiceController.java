@@ -1,20 +1,23 @@
 package com.example.rschircoursework.controllers;
 
+import com.example.rschircoursework.model.entity.Order;
+import com.example.rschircoursework.model.entity.OrderDetail;
 import com.example.rschircoursework.model.entity.ShoppingBasket;
 import com.example.rschircoursework.model.entity.User;
 import com.example.rschircoursework.model.enumerations.MyValues;
-import com.example.rschircoursework.services.IItemService;
-import com.example.rschircoursework.services.IPetService;
-import com.example.rschircoursework.services.IShoppingBasketService;
-import com.example.rschircoursework.services.IUserService;
+import com.example.rschircoursework.services.*;
 import com.example.rschircoursework.services.impl.EmailService;
 import com.example.rschircoursework.services.impl.UserServiceImpl;
+import org.hibernate.type.LocalDateTimeType;
+import org.hibernate.type.LocalDateType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.time.LocalDateTime;
 
 @Controller
 @RequestMapping(value = "/shopping_basket")
@@ -23,6 +26,7 @@ public class ShoppingBasketServiceController extends AbstractController<Shopping
     private IUserService iUserService;
     private IPetService iPetService;
     private IShoppingBasketService iShoppingBasketService;
+    private IOrderService iOrderService;
     private EmailService emailService;
 
     @Autowired
@@ -31,12 +35,14 @@ public class ShoppingBasketServiceController extends AbstractController<Shopping
                                               IUserService iUserService,
                                               IPetService iPetService,
                                               IShoppingBasketService iShoppingBasketService,
+                                              IOrderService iOrderService,
                                               EmailService emailService) {
         super(service);
         this.iItemService = iItemService;
         this.iUserService = iUserService;
         this.iPetService = iPetService;
         this.iShoppingBasketService = iShoppingBasketService;
+        this.iOrderService = iOrderService;
         this.emailService = emailService;
     }
 
@@ -124,8 +130,21 @@ public class ShoppingBasketServiceController extends AbstractController<Shopping
                 iShoppingBasketService.
                         getItemByUserId(user.getId()));
 
-        emailService.sendmail(user.getEmail(), userMessage);
-        emailService.sendmail(MyValues.EMAILMENEGER, managerMessage);
+        System.out.println("the letter is send");
+
+        Order order = new Order();
+        order.setUserId(user.getId());
+        order.setOrderTime(LocalDateTime.now());
+        order.setCostOrder(
+                iShoppingBasketService.getTotalPrice(
+                        iShoppingBasketService.getItemByUserId(
+                                user.getId()
+                        )));
+
+        iOrderService.create(order);
+
+        //emailService.sendmail(user.getEmail(), userMessage);
+        //emailService.sendmail(MyValues.EMAILMENEGER, managerMessage);
         iShoppingBasketService.deleteAllByUserId(user.getId());
         return "redirect:/shopping_basket/purchases";
     }

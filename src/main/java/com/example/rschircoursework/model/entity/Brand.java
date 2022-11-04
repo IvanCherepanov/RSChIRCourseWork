@@ -7,7 +7,7 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "brend_type")
+@Table(name = "brand_type")
 @Setter
 @Getter
 @NoArgsConstructor
@@ -17,7 +17,7 @@ public class Brand {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "item_brend_name")
+    @Column(name = "item_brand_name")
     private String brandName;
 
     @Column(name = "sale_in_procent")

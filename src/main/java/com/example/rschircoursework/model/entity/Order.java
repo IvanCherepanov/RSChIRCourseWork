@@ -30,4 +30,7 @@ public class Order {
     @Column(name="order_time")
     private LocalDateTime orderTime;
 
+    @Column(name="cost_order")
+    private int costOrder;
+
 }

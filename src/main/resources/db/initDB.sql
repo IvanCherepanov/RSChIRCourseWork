@@ -12,11 +12,11 @@ CREATE TABLE IF NOT EXISTS item_type
     item_type_name  VARCHAR(256) NOT NULL
     );
 
---DROP TABLE IF EXISTS brend_type;
-CREATE TABLE IF NOT EXISTS brend_type
+--DROP TABLE IF EXISTS brand_type;
+CREATE TABLE IF NOT EXISTS brand_type
 (
     id    SERIAL NOT NULL PRIMARY KEY ,
-    item_brend_name  VARCHAR(256) NOT NULL,
+    item_brand_name  VARCHAR(256) NOT NULL,
     sale_in_procent INTEGER
     );
 
@@ -29,9 +29,11 @@ CREATE TABLE IF NOT EXISTS item
     description VARCHAR(256) NOT NULL,
     item_type_id INTEGER,
     pet_type_id INTEGER,
+    brand_type_id INTEGER,
     image_item VARCHAR(256),
     FOREIGN KEY (item_type_id) REFERENCES item_type (id) ON DELETE CASCADE,
-    FOREIGN KEY (pet_type_id) REFERENCES pet_type (id) ON DELETE CASCADE
+    FOREIGN KEY (pet_type_id) REFERENCES pet_type (id) ON DELETE CASCADE,
+    FOREIGN KEY (brand_type_id) REFERENCES brand_type (id) ON DELETE CASCADE
     );
 
 --DROP TABLE IF EXISTS users;
@@ -61,7 +63,8 @@ CREATE TABLE IF NOT EXISTS orders
     id SERIAL PRIMARY KEY ,
     user_id INTEGER,
     order_time TIMESTAMP ,
-    FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
+    FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
+    cost_order INTEGER
     );
 
 --DROP TABLE IF EXISTS order_details;

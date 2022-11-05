@@ -63,7 +63,7 @@
         <!--/*@thymesVar id="pets" type=""*/-->
         <tr th:each="type: ${types}">
             <td th:text = "${type.itemTypeName}"></td>
-            --<td>
+            <td>
             <a th:href = "@{/item_type/edit/{id} (id=${type.id})}"
                class = "btn btn-primary">Обновить</a>
 

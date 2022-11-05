@@ -1,9 +1,6 @@
 package com.example.rschircoursework.controllers;
 
-import com.example.rschircoursework.model.entity.Order;
-import com.example.rschircoursework.model.entity.OrderDetail;
-import com.example.rschircoursework.model.entity.ShoppingBasket;
-import com.example.rschircoursework.model.entity.User;
+import com.example.rschircoursework.model.entity.*;
 import com.example.rschircoursework.model.enumerations.MyValues;
 import com.example.rschircoursework.services.*;
 import com.example.rschircoursework.services.impl.EmailService;
@@ -18,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Controller
 @RequestMapping(value = "/shopping_basket")
@@ -27,6 +25,7 @@ public class ShoppingBasketServiceController extends AbstractController<Shopping
     private IPetService iPetService;
     private IShoppingBasketService iShoppingBasketService;
     private IOrderService iOrderService;
+    private IOrderDetailServer iOrderDetailServer;
     private EmailService emailService;
 
     @Autowired
@@ -36,6 +35,7 @@ public class ShoppingBasketServiceController extends AbstractController<Shopping
                                               IPetService iPetService,
                                               IShoppingBasketService iShoppingBasketService,
                                               IOrderService iOrderService,
+                                              IOrderDetailServer iOrderDetailServer,
                                               EmailService emailService) {
         super(service);
         this.iItemService = iItemService;
@@ -43,6 +43,7 @@ public class ShoppingBasketServiceController extends AbstractController<Shopping
         this.iPetService = iPetService;
         this.iShoppingBasketService = iShoppingBasketService;
         this.iOrderService = iOrderService;
+        this.iOrderDetailServer = iOrderDetailServer;
         this.emailService = emailService;
     }
 
@@ -142,6 +143,17 @@ public class ShoppingBasketServiceController extends AbstractController<Shopping
                         )));
 
         iOrderService.create(order);
+
+        List<ShoppingBasket> tempList = iShoppingBasketService.getItemByUserId(user.getId());
+        for (ShoppingBasket shoppingBasket: tempList) {
+            OrderDetail orderDetail = new OrderDetail();
+
+            orderDetail.setOrderId(order.getId());
+            orderDetail.setItemId(shoppingBasket.getItemId());
+            orderDetail.setAmount(shoppingBasket.getAmount());
+
+            iOrderDetailServer.create(orderDetail);
+        }
 
         //emailService.sendmail(user.getEmail(), userMessage);
         //emailService.sendmail(MyValues.EMAILMENEGER, managerMessage);

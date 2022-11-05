@@ -92,7 +92,7 @@
         <h3 class = "text-center"> Сортировка </h3>
         <div class="product-page-content">
             <div class="products-menu">
-                <nav class="badge badge-light" th:each="condType : ${T(com.example.demo.model.enumerations.Condition).values()}">
+                <nav class="badge badge-light" th:each="condType : ${T(com.example.rschircoursework.model.enumerations.Condition).values()}">
                     <a th:href="@{/user/products(pId=${pId}, pTId=${pTId}, sId=${condType.ordinal()})}"
                        th:text="${condType.getValue()}">TEXT</a>
                 </nav>

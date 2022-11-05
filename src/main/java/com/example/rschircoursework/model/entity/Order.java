@@ -27,10 +27,14 @@ public class Order {
     @Column(name="user_id")
     private Long userId;
 
+    // TODO: 05.11.2022 поменять на string; смотреть в проект бд
     @Column(name="order_time")
     private LocalDateTime orderTime;
 
     @Column(name="cost_order")
     private int costOrder;
+
+    @Transient
+    private String inputDate;
 
 }

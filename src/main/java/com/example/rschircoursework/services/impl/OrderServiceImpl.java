@@ -8,12 +8,16 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @Service
 @Transactional
 public class OrderServiceImpl extends AbstractServiceImpl<Order, IOrderRepository> implements IOrderService {
-    protected OrderServiceImpl(IOrderRepository defaultDao) {
+    private IOrderRepository iOrderRepository;
+    protected OrderServiceImpl(IOrderRepository defaultDao,
+                               IOrderRepository iOrderRepository) {
         super(defaultDao);
+        this.iOrderRepository = iOrderRepository;
     }
 
     @Override
@@ -22,5 +26,10 @@ public class OrderServiceImpl extends AbstractServiceImpl<Order, IOrderRepositor
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         LocalDateTime dateTime = LocalDateTime.parse(dateString, formatter);
         return dateTime;
+    }
+
+    @Override
+    public List<Order> getAllOrderByUserId(Long userId) {
+        return iOrderRepository.findAllByUserId(userId);
     }
 }

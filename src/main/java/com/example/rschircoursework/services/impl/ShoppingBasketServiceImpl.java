@@ -22,7 +22,9 @@ public class ShoppingBasketServiceImpl extends AbstractServiceImpl<ShoppingBaske
     private IUserService iUserService;
 
     @Autowired
-    protected ShoppingBasketServiceImpl(IShoppingBasketRepository defaultDao, IItemService iItemService, IUserService iUserService) {
+    protected ShoppingBasketServiceImpl(IShoppingBasketRepository defaultDao,
+                                        IItemService iItemService,
+                                        IUserService iUserService) {
         super(defaultDao);
         this.iShoppingBasketRepository = defaultDao;
         this.iItemService = iItemService;

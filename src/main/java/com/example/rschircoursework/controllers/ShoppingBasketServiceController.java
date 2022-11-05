@@ -1,12 +1,9 @@
 package com.example.rschircoursework.controllers;
 
 import com.example.rschircoursework.model.entity.*;
-import com.example.rschircoursework.model.enumerations.MyValues;
 import com.example.rschircoursework.services.*;
 import com.example.rschircoursework.services.impl.EmailService;
 import com.example.rschircoursework.services.impl.UserServiceImpl;
-import org.hibernate.type.LocalDateTimeType;
-import org.hibernate.type.LocalDateType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -25,7 +22,7 @@ public class ShoppingBasketServiceController extends AbstractController<Shopping
     private IPetService iPetService;
     private IShoppingBasketService iShoppingBasketService;
     private IOrderService iOrderService;
-    private IOrderDetailServer iOrderDetailServer;
+    private IOrderDetailService iOrderDetailServer;
     private EmailService emailService;
 
     @Autowired
@@ -35,7 +32,7 @@ public class ShoppingBasketServiceController extends AbstractController<Shopping
                                               IPetService iPetService,
                                               IShoppingBasketService iShoppingBasketService,
                                               IOrderService iOrderService,
-                                              IOrderDetailServer iOrderDetailServer,
+                                              IOrderDetailService iOrderDetailServer,
                                               EmailService emailService) {
         super(service);
         this.iItemService = iItemService;

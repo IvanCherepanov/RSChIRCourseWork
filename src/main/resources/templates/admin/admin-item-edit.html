@@ -109,6 +109,21 @@
           </div>
 
           <div class="form-group">
+            <label> Бренд </label>
+            <select
+                    class="form-control"
+                    th:field="*{brandId}"
+                    id="dropOperator3">
+              <option value="0">select operator</option>
+              <option
+                      th:each="brand : ${brands}"
+                      th:value="${brand.id}"
+                      th:text="${brand.brandName}"
+              ></option>
+            </select>
+          </div>
+
+          <div class="form-group">
             <label> Изображение </label>
             <input
                     type="text"

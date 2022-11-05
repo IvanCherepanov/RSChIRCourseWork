@@ -119,6 +119,9 @@
 
                     </p>
                     <p class="card-text" th:text="${item.cost}"></p>
+                    <div th:with="result=${item.cost * 0.01 * (100-item.brand.sale)}">Скидка!
+                        <span th:text="${#numbers.formatDecimal(result, 0, 2)}"></span>
+                    </div>
 
                     <div class="row-cols-4">
                         <form th:method="POST" th:action="@{/shopping_basket/addPurchase}">

@@ -62,7 +62,9 @@ public class ShoppingBasketServiceImpl extends AbstractServiceImpl<ShoppingBaske
     public int getTotalPrice(List<ShoppingBasket> purchases) {
         int result = 0;
         for (ShoppingBasket purchase : purchases) {
-            result += (iItemService.findById(purchase.getItemId())).getCost() * purchase.getAmount();
+            result += (iItemService.findById(purchase.getItemId())).getCost()
+                    * (1 - 0.01 * iItemService.findById(purchase.getItemId()).getBrand().getSale())
+                    * purchase.getAmount();
         }
         return result;
     }
@@ -101,6 +103,7 @@ public class ShoppingBasketServiceImpl extends AbstractServiceImpl<ShoppingBaske
         return result;
     }
 
+    // TODO: 06.11.2022 добавить для письма скидку
     private String getStringOrder(List<ShoppingBasket> userPurchases, List<Item> userProducts, String result) {
         for (int i = 0; i < userProducts.size(); i++) {
             result +=

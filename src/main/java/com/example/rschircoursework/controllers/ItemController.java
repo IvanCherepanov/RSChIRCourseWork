@@ -1,10 +1,7 @@
 package com.example.rschircoursework.controllers;
 
 import com.example.rschircoursework.model.entity.Item;
-import com.example.rschircoursework.services.IItemService;
-import com.example.rschircoursework.services.IItemTypeService;
-import com.example.rschircoursework.services.IPetService;
-import com.example.rschircoursework.services.IUserService;
+import com.example.rschircoursework.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -20,18 +17,21 @@ public class ItemController extends AbstractController<Item, IItemService> {
     private IItemTypeService iItemTypeService;
     private IUserService iUserService;
     private IItemService iItemService;
+    private IBrandService iBrandService;
 
     @Autowired
     protected ItemController(IItemService service,
                              IPetService iPetService,
                              IItemTypeService iItemTypeService,
                              IUserService iUserService,
-                             IItemService iItemService) {
+                             IItemService iItemService,
+                             IBrandService iBrandService) {
         super(service);
         this.iPetService = iPetService;
         this.iItemTypeService = iItemTypeService;
         this.iUserService = iUserService;
         this.iItemService = iItemService;
+        this.iBrandService = iBrandService;
     }
 
 
@@ -64,6 +64,7 @@ public class ItemController extends AbstractController<Item, IItemService> {
         Item item = new Item();
         model.addAttribute("pets", iPetService.getAll());
         model.addAttribute("types", iItemTypeService.getAll());
+        model.addAttribute("brands",iBrandService.getAll());
         model.addAttribute("item", item);
         return "admin/admin-item-add";
 
@@ -80,6 +81,7 @@ public class ItemController extends AbstractController<Item, IItemService> {
         model.addAttribute("item", service.findById(id));
         model.addAttribute("pets", iPetService.getAll());
         model.addAttribute("types", iItemTypeService.getAll());
+        model.addAttribute("brands",iBrandService.getAll());
         return "admin/admin-item-edit";
     }
 
@@ -92,6 +94,9 @@ public class ItemController extends AbstractController<Item, IItemService> {
         existingItem.setDescription(item.getDescription());
         existingItem.setImagePath(item.getImagePath());
         existingItem.setItemName(item.getItemName());
+        existingItem.setItemTypeId(item.getItemTypeId());
+        existingItem.setPetTypeId(item.getPetTypeId());
+        existingItem.setBrandId(item.getBrandId());
         service.update(id, existingItem);
         return "redirect:/item/list";
     }

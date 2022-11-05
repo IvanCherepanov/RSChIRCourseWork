@@ -43,6 +43,17 @@ public class Item {
     @Column(name="pet_type_id")
     private Long petTypeId;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="brand_type_id", insertable = false, updatable = false)
+    @JsonIgnore
+    private Brand brand;
+
+    @Column(name="brand_type_id")
+    private Long brandId;
+
     @Column(name = "image_item")
     private String imagePath;
+
+    @Transient
+    private double costWithSale;
 }

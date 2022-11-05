@@ -2,9 +2,12 @@ package com.example.rschircoursework.controllers;
 
 import com.example.rschircoursework.model.entity.Item;
 import com.example.rschircoursework.model.entity.Order;
+import com.example.rschircoursework.model.entity.User;
 import com.example.rschircoursework.services.IItemService;
 import com.example.rschircoursework.services.IOrderService;
 import com.example.rschircoursework.services.IUserService;
+import com.example.rschircoursework.services.impl.UserServiceImpl;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -73,6 +76,16 @@ public class OrderController extends AbstractController<Order, IOrderService> {
     public String deleteItem(@PathVariable Long id) {
         service.delete(id);
         return "redirect:/order/list";
+    }
+
+    @GetMapping("/owner")
+    public String readingAllByUser(Authentication authentication, Model model) {
+        String userRole = ((User) (((UserServiceImpl) iUserService).loadUserByUsername(authentication.getName()))).getRole();
+        Long userId = ((User) (((UserServiceImpl) iUserService).loadUserByUsername(authentication.getName()))).getId();
+        model.addAttribute("orders", service.getAllOrderByUserId(userId));
+        model.addAttribute("userRole", userRole);
+        System.out.println(456);
+        return "order";
     }
 
 }

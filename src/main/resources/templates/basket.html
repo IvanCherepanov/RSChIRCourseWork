@@ -79,7 +79,9 @@
         <th scope="col">#</th>
         <th scope="col">Название </th>
         <th scope="col">Цена за ед.</th>
+        <th scope="col"> Цена по скидке</th>
         <th scope="col">Сумма</th>
+        <th scope="col">Сумма по скидке</th>
         <th scope="col">Количество</th>
         <th scope="col">Изменить количество</th>
         <th scope="col">Удалить</th>
@@ -91,7 +93,17 @@
         <th scope="row" th:text="${index.count}">INDEX</th>
         <td th:text="${purchase.item.itemName}" style="width: 1000px;">PRODUCT NAME</td>
         <td th:text="${purchase.item.cost} + ' р.'">PRODUCT PRICE</td>
+        <td>
+          <div th:with="result=${purchase.item.cost * 0.01 * (100-purchase.item.brand.sale)}">
+            <span th:text="${#numbers.formatDecimal(result, 0, 2)}"></span>
+          </div>
+        </td>
         <td th:text="${purchase.item.cost * purchase.amount} + ' р.'">PRODUCT TOTAL PRICE</td>
+        <td>
+          <div th:with="result=${purchase.item.cost * 0.01 * (100-purchase.item.brand.sale) * purchase.amount}">
+            <span th:text="${#numbers.formatDecimal(result, 0, 2)}"></span>
+          </div>
+        </td>
 
         <form th:method="POST" th:action= "@{/shopping_basket/changeAmountPurchases}"
               style="display: flex; margin-top: 20px;">

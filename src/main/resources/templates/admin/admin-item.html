@@ -55,9 +55,11 @@
         <tr>
             <th> Название</th>
             <th> Цена</th>
+            <th> Цена по скидке</th>
             <th> Описание </th>
             <th> Тип </th>
             <th> Категория </th>
+            <th> Бренд </th>
             <th> Изображение </th>
             <th> Действия </th>
         </tr>
@@ -68,9 +70,15 @@
         <tr th:each="item: ${items}">
             <td th:text = "${item.itemName}"></td>
             <td th:text = "${item.cost}"></td>
+            <td>
+            <div th:with="result=${item.cost * 0.01 * (100-item.brand.sale)}">
+                <span th:text="${#numbers.formatDecimal(result, 0, 2)}"></span>
+            </div>
+            </td>
             <td th:text = "${item.description}"></td>
             <td th:text = "${item.itemType.itemTypeName}"></td>
             <td th:text = "${item.pet.petName}"></td>
+            <td th:text = "${item.brand.brandName}"></td>
             <td>
             <img th:src="@{${item.imagePath}}" alt="Circle Image"
                  class="img-circle img-no-padding img-responsive"

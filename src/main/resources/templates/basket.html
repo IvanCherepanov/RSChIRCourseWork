@@ -11,60 +11,60 @@
 </head>
 
 <body>
+<div th:insert="navbar.html :: nav"></div>
+<!--<nav class="navbar fixed-top navbar-expand-md bg-dark navbar-dark">-->
+<!--  <div class="container-fluid">-->
+<!--    <a class="navbar-brand">PetStore</a>-->
+<!--    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">-->
+<!--      <span class="navbar-toggler-icon"></span>-->
+<!--    </button>-->
+<!--    <div class="collapse navbar-collapse" id="navbarSupportedContent">-->
+<!--      <ul class="navbar-nav">-->
 
-<nav class="navbar fixed-top navbar-expand-md bg-dark navbar-dark">
-  <div class="container-fluid">
-    <a class="navbar-brand">PetStore</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav">
+<!--        <li class="nav-item dropdown">-->
+<!--          <a class="nav-link dropdown-toggle" href="http://example.com"-->
+<!--             id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+<!--            Питомцы-->
+<!--          </a>-->
+<!--          <div class="dropdown-menu"  aria-labelledby="navbarDropdownMenuLink">-->
+<!--            <ul th:each="pet : ${pets}">-->
+<!--              <a class="dropdown-item bg-white" th:href="@{/user/products(pId=${pet.id}, pTId=0)}"-->
+<!--                 th:text="${pet.petName}">Text</a>-->
+<!--            </ul>-->
+<!--          </div>-->
+<!--        </li>-->
 
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="http://example.com"
-             id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Питомцы
-          </a>
-          <div class="dropdown-menu"  aria-labelledby="navbarDropdownMenuLink">
-            <ul th:each="pet : ${pets}">
-              <a class="dropdown-item bg-white" th:href="@{/user/products(pId=${pet.id}, pTId=0)}"
-                 th:text="${pet.petName}">Text</a>
-            </ul>
-          </div>
-        </li>
+<!--        <li class="nav-item">-->
+<!--          <a class="nav-link" href="/shopping_basket/purchases">Корзина</a>-->
+<!--        </li>-->
 
-        <li class="nav-item">
-          <a class="nav-link" href="/shopping_basket/purchases">Корзина</a>
-        </li>
+<!--        <li class="nav-item" th:if="${userRole} == 'GUEST'">-->
+<!--          <a class="nav-link" href="/login">Войти</a>-->
+<!--        </li>-->
 
-        <li class="nav-item" th:if="${userRole} == 'GUEST'">
-          <a class="nav-link" href="/login">Войти</a>
-        </li>
+<!--        <li class="nav-item" th:if="${userRole} == 'GUEST'">-->
+<!--          <a class="nav-link" href="/sign">Зарегистрироваться</a>-->
+<!--        </li>-->
 
-        <li class="nav-item" th:if="${userRole} == 'GUEST'">
-          <a class="nav-link" href="/sign">Зарегистрироваться</a>
-        </li>
+<!--        <li class="nav-item" th:if="${userRole} == 'ADMIN' or ${userRole} == 'USER'">-->
+<!--          <a class="nav-link" href="/logout">Выйти</a>-->
+<!--        </li>-->
 
-        <li class="nav-item" th:if="${userRole} == 'ADMIN' or ${userRole} == 'USER'">
-          <a class="nav-link" href="/logout">Выйти</a>
-        </li>
+<!--        <li class="nav-item dropdown">-->
+<!--          <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink"-->
+<!--             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+<!--            Дополнительно-->
+<!--          </a>-->
+<!--          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">-->
+<!--            <a th:if="${userRole} == 'ADMIN'" class="dropdown-item" href="/user/admin">Админ панель</a>-->
+<!--            <a class="dropdown-item" href="/user/home">О проекте</a>-->
+<!--          </div>-->
+<!--        </li>-->
 
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink"
-             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Дополнительно
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a th:if="${userRole} == 'ADMIN'" class="dropdown-item" href="/user/admin">Админ панель</a>
-            <a class="dropdown-item" href="/user/home">О проекте</a>
-          </div>
-        </li>
-
-      </ul>
-    </div>
-  </div>
-</nav>
+<!--      </ul>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</nav>-->
 
 <div class="content padding-site m-2 mt-5">
   <h2 class="invisible">_</h2>
@@ -159,13 +159,14 @@
   <p>Конец</p>
   <h2>Конец</h2>
 </div>
+<div th:insert="footer.html :: copy"></div>
 </body>
 
-<footer class="bg-dark fixed-bottom text-center text-white">
-  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-    © 2022 Copyright:
-    <a class="text-white" href="https://github.com/IvanCherepanov/JavaSpringCourseWork">Черепанов Иван Владимирович ИКБО-01-20, 2022</a>
-  </div>
-</footer>
+<!--<footer class="bg-dark fixed-bottom text-center text-white">-->
+<!--  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">-->
+<!--    © 2022 Copyright:-->
+<!--    <a class="text-white" href="https://github.com/IvanCherepanov/JavaSpringCourseWork">Черепанов Иван Владимирович ИКБО-01-20, 2022</a>-->
+<!--  </div>-->
+<!--</footer>-->
 
 </html>

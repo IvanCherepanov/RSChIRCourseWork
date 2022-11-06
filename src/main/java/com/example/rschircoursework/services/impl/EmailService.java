@@ -1,7 +1,9 @@
 package com.example.rschircoursework.services.impl;
 
+import com.example.rschircoursework.model.enumerations.MyValues;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.scheduling.annotation.Async;
@@ -19,7 +21,7 @@ import java.time.format.FormatStyle;
 import static com.example.rschircoursework.model.enumerations.MyValues.*;
 import static com.example.rschircoursework.model.enumerations.MyValues.EMAILSERVER;
 
-// TODO: 02.11.2022 раскомитить   конфиг тоже
+
 @Service
 public class EmailService {
 

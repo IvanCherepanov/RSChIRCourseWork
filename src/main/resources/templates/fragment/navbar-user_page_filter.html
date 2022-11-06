@@ -28,6 +28,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/shopping_basket/purchases">Корзина</a>
                     </li>
+                    <li class="nav-item" th:if="${userRole} == 'ADMIN' or ${userRole} == 'USER'">
+                        <a class="nav-link" href="/order/owner">Заказы</a>
+                    </li>
 
                     <li class="nav-item" th:if="${userRole} == 'GUEST'">
                         <a class="nav-link" href="/login">Войти</a>

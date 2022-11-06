@@ -5,6 +5,7 @@ import com.example.rschircoursework.model.entity.Order;
 import com.example.rschircoursework.model.entity.User;
 import com.example.rschircoursework.services.IItemService;
 import com.example.rschircoursework.services.IOrderService;
+import com.example.rschircoursework.services.IPetService;
 import com.example.rschircoursework.services.IUserService;
 import com.example.rschircoursework.services.impl.UserServiceImpl;
 import org.springframework.security.core.Authentication;
@@ -18,15 +19,18 @@ public class OrderController extends AbstractController<Order, IOrderService> {
     private IOrderService iOrderService;
     private IUserService iUserService;
     private IItemService iItemService;
+    private IPetService iPetService;
 
     protected OrderController(IOrderService service,
                               IOrderService iOrderService,
                               IUserService iUserService,
-                              IItemService iItemService) {
+                              IItemService iItemService,
+                              IPetService iPetService) {
         super(service);
         this.iItemService = iItemService;
         this.iOrderService = iOrderService;
         this.iUserService = iUserService;
+        this.iPetService = iPetService;
     }
 
     @GetMapping("/list")
@@ -84,6 +88,8 @@ public class OrderController extends AbstractController<Order, IOrderService> {
         Long userId = ((User) (((UserServiceImpl) iUserService).loadUserByUsername(authentication.getName()))).getId();
         model.addAttribute("orders", service.getAllOrderByUserId(userId));
         model.addAttribute("userRole", userRole);
+        model.addAttribute("userName", authentication.getName());
+        model.addAttribute("pets", iPetService.getAll());
         System.out.println(456);
         return "order";
     }

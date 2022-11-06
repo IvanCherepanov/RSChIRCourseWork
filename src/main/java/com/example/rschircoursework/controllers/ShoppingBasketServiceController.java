@@ -1,6 +1,7 @@
 package com.example.rschircoursework.controllers;
 
 import com.example.rschircoursework.model.entity.*;
+import com.example.rschircoursework.model.enumerations.MyValues;
 import com.example.rschircoursework.services.*;
 import com.example.rschircoursework.services.impl.EmailService;
 import com.example.rschircoursework.services.impl.UserServiceImpl;
@@ -128,7 +129,7 @@ public class ShoppingBasketServiceController extends AbstractController<Shopping
                 iShoppingBasketService.
                         getItemByUserId(user.getId()));
 
-        System.out.println("the letter is send");
+        //System.out.println("the letter is send");
 
         Order order = new Order();
         order.setUserId(user.getId());
@@ -152,8 +153,8 @@ public class ShoppingBasketServiceController extends AbstractController<Shopping
             iOrderDetailServer.create(orderDetail);
         }
 
-        //emailService.sendmail(user.getEmail(), userMessage);
-        //emailService.sendmail(MyValues.EMAILMENEGER, managerMessage);
+        emailService.sendmail(user.getEmail(), userMessage);
+        emailService.sendmail(MyValues.EMAILMENEGER, managerMessage);
         iShoppingBasketService.deleteAllByUserId(user.getId());
         return "redirect:/shopping_basket/purchases";
     }

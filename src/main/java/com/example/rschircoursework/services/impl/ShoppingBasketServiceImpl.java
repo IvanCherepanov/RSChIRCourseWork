@@ -113,7 +113,11 @@ public class ShoppingBasketServiceImpl extends AbstractServiceImpl<ShoppingBaske
                             userPurchases.get(i).getAmount() +
                             ", Стоимость: " +
                             (userProducts.get(i).getCost() * userPurchases.get(i).getAmount())
-                            + " р.)<br>";
+                            + " р.)" +
+                            ", Цена по скидке: " +
+                            (userProducts.get(i).getCost() * 0.01 * (100 - userProducts.get(i).getBrand().getSale()) * userPurchases.get(i).getAmount())
+                            + " р.)" +
+                            "<br>";
         }
         result += "Общая стоимость: " + getTotalPrice(userPurchases) + " р.<br>";
         return result;

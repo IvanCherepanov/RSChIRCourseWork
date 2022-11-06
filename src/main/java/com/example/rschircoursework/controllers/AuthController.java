@@ -19,7 +19,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-// TODO: 02.11.2022 раскоментить
+
 @Controller
 public class AuthController extends AbstractController<User, IUserService>{
     private final IUserService iUserService;

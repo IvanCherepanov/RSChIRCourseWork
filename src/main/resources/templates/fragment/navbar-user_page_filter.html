@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="headerfiles">
+<body>
+<div th:fragment="nav">
+    <nav class="navbar fixed-top navbar-expand-md bg-dark navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand">PetStore</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav">
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="http://example.com"
+                           id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Питомцы
+                        </a>
+                        <div class="dropdown-menu"  aria-labelledby="navbarDropdownMenuLink">
+                            <ul th:each="pet : ${pets}">
+                                <a class="dropdown-item bg-white" th:href="@{/user/products(pId=${pet.id}, pTId=0)}"
+                                   th:text="${pet.petName}">Text</a>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/shopping_basket/purchases">Корзина</a>
+                    </li>
+
+                    <li class="nav-item" th:if="${userRole} == 'GUEST'">
+                        <a class="nav-link" href="/login">Войти</a>
+                    </li>
+
+                    <li class="nav-item" th:if="${userRole} == 'GUEST'">
+                        <a class="nav-link" href="/sign">Зарегистрироваться</a>
+                    </li>
+
+                    <li class="nav-item" th:if="${userRole} == 'ADMIN' or ${userRole} == 'USER'">
+                        <a class="nav-link" href="/logout">Выйти</a>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Дополнительно
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a th:if="${userRole} == 'ADMIN'" class="dropdown-item" href="/user/admin">Админ панель</a>
+                            <a class="dropdown-item" href="/user/home">О проекте</a>
+                        </div>
+                    </li>
+
+                </ul>
+                <form class="d-flex" th:method="GET" th:action="@{/item/name}" >
+                    <input class="form-control me-2" float="right"
+                           type="search" placeholder="Поиск" aria-label="Поиск"
+                           th:name="itemName"
+                           required>
+                    <button class="btn btn-outline-success" type="submit">Поиск</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+</div>
+</body>
+</html>

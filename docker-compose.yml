@@ -1,0 +1,29 @@
+version: "3"
+services:
+  web:
+    image: adoptopenjdk:11-jre-hotspot
+    container_name: springapp
+    volumes:
+      - ./RSChIRCourseWork-0.0.1-SNAPSHOT.jar:/RSChIRCourseWork-0.0.1-SNAPSHOT.jar
+    command: java -jar RSChIRCourseWork-0.0.1-SNAPSHOT.jar
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://${DATABASE_HOST}:${DATABASE_PORT_EXT}/${DATABASE_NAME}
+      - SPRING_DATASOURCE_USERNAME=${DATABASE_USERNAME}
+      - SPRING_DATASOURCE_PASSWORD=${DATABASE_PASSWORD}
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    depends_on:
+      - db
+  db:
+    image: postgres:13.3
+    container_name: ${DATABASE_HOST}
+    environment:
+      POSTGRES_DB: ${DATABASE_NAME}
+      POSTGRES_USER: ${DATABASE_USERNAME}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+    volumes:
+      - ./src/main/resources/db:/docker-entrypoint-initdb.d
+    command: postgres -p ${DATABASE_PORT_EXT}
+    ports:
+      - ${DATABASE_PORT_EXT}:${DATABASE_PORT_INT}

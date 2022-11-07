@@ -1,0 +1,55 @@
+#ON CONFLICT DO NOTHING
+insert into brand_type (item_brand_name, sale_in_procent) values ('It', 23);
+insert into brand_type (item_brand_name, sale_in_procent) values ('Treeflex', 24);
+insert into brand_type (item_brand_name, sale_in_procent) values ('Matsoft', 48);
+insert into brand_type (item_brand_name, sale_in_procent) values ('Home Ing', 17);
+insert into brand_type (item_brand_name, sale_in_procent) values ('Namfix', 20);
+insert into brand_type (item_brand_name, sale_in_procent) values ('Home Ing', 50);
+insert into brand_type (item_brand_name, sale_in_procent) values ('Alpha', 9);
+insert into brand_type (item_brand_name, sale_in_procent) values ('Bitwolf', 6);
+insert into brand_type (item_brand_name, sale_in_procent) values ('Konklux', 27);
+insert into brand_type (item_brand_name, sale_in_procent) values ('Opela', 26);
+insert into brand_type (item_brand_name, sale_in_procent) values ('Keylex', 24);
+insert into brand_type (item_brand_name, sale_in_procent) values ('Voltsillam', 35);
+insert into brand_type (item_brand_name, sale_in_procent) values ('It', 26);
+insert into brand_type (item_brand_name, sale_in_procent) values ('Opela', 19);
+insert into brand_type (item_brand_name, sale_in_procent) values ('Tin', 42);
+insert into brand_type (item_brand_name, sale_in_procent) values ('Kanlam', 48);
+insert into brand_type (item_brand_name, sale_in_procent) values ('Otcom', 46);
+insert into brand_type (item_brand_name, sale_in_procent) values ('Ventosanzap', 57);
+insert into brand_type (item_brand_name, sale_in_procent) values ('Prodder', 57);
+insert into brand_type (item_brand_name, sale_in_procent) values ('Cookley', 47);
+insert into brand_type (item_brand_name, sale_in_procent) values ('Keylex', 46);
+insert into brand_type (item_brand_name, sale_in_procent) values ('Fintone', 32);
+insert into brand_type (item_brand_name, sale_in_procent) values ('Tin', 9);
+insert into brand_type (item_brand_name, sale_in_procent) values ('Flowdesk', 35);
+insert into brand_type (item_brand_name, sale_in_procent) values ('Tampflex', 7);
+insert into brand_type (item_brand_name, sale_in_procent) values ('Duobam', 31);
+insert into brand_type (item_brand_name, sale_in_procent) values ('Ronstring', 38);
+insert into brand_type (item_brand_name, sale_in_procent) values ('Veribet', 52);
+insert into brand_type (item_brand_name, sale_in_procent) values ('Konklux', 16);
+insert into brand_type (item_brand_name, sale_in_procent) values ('Zaam-Dox', 55);
+insert into brand_type (item_brand_name, sale_in_procent) values ('Zontrax', 44);
+insert into brand_type (item_brand_name, sale_in_procent) values ('Vagram', 36);
+insert into brand_type (item_brand_name, sale_in_procent) values ('Andalax', 44);
+insert into brand_type (item_brand_name, sale_in_procent) values ('Zamit', 33);
+insert into brand_type (item_brand_name, sale_in_procent) values ('Bytecard', 46);
+insert into brand_type (item_brand_name, sale_in_procent) values ('Solarbreeze', 44);
+insert into brand_type (item_brand_name, sale_in_procent) values ('Andalax', 58);
+insert into brand_type (item_brand_name, sale_in_procent) values ('Y-find', 29);
+insert into brand_type (item_brand_name, sale_in_procent) values ('Overhold', 30);
+insert into brand_type (item_brand_name, sale_in_procent) values ('Cardguard', 26);
+
+INSERT INTO item_type (item_type_name) VALUES ('Корм');
+INSERT INTO item_type (item_type_name) VALUES ('Лекарство');
+INSERT INTO item_type  (item_type_name) VALUES ('Оборудование');
+INSERT INTO item_type (item_type_name) VALUES ('Игрушка');
+
+
+INSERT INTO pet_type (pet_type_name) VALUES ('Собака');
+INSERT INTO pet_type VALUES (2,'Кошка');
+INSERT INTO pet_type VALUES (3,'Грызуны');
+INSERT INTO pet_type VALUES (4,'Рыбы');
+INSERT INTO pet_type VALUES (5,'Змея');
+INSERT INTO pet_type VALUES (6,'Птицы');
+INSERT INTO pet_type VALUES (7,'Временное');

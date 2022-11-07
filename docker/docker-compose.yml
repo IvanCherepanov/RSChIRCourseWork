@@ -9,7 +9,7 @@ services:
     ports:
       - "8080:8080"
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://${DATABASE_HOST}:${DATABASE_PORT_EXT}/${DATABASE_NAME}
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://${DATABASE_HOST}:${DATABASE_PORT_INT}/${DATABASE_NAME}
       - SPRING_DATASOURCE_USERNAME=${DATABASE_USERNAME}
       - SPRING_DATASOURCE_PASSWORD=${DATABASE_PASSWORD}
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
@@ -24,6 +24,6 @@ services:
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
     volumes:
       - ./db:/docker-entrypoint-initdb.d
-    command: postgres -p ${DATABASE_PORT_EXT}
+    command: postgres -p ${DATABASE_PORT_INT}
     ports:
       - ${DATABASE_PORT_EXT}:${DATABASE_PORT_INT}

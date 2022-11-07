@@ -1,8 +1,8 @@
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
+!docker/db/main/**/target/
+!docker/db/test/**/target/
 
 ### STS ###
 .apt_generated
@@ -26,8 +26,8 @@ target/
 /nbdist/
 /.nb-gradle/
 build/
-!**/src/main/**/build/
-!**/src/test/**/build/
+!docker/db/main/**/build/
+!docker/db/test/**/build/
 
 ### VS Code ###
 .vscode/

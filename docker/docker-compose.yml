@@ -23,7 +23,7 @@ services:
       POSTGRES_USER: ${DATABASE_USERNAME}
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
     volumes:
-      - ./src/main/resources/db:/docker-entrypoint-initdb.d
+      - ./db:/docker-entrypoint-initdb.d
     command: postgres -p ${DATABASE_PORT_EXT}
     ports:
       - ${DATABASE_PORT_EXT}:${DATABASE_PORT_INT}

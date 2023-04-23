@@ -12,4 +12,5 @@ public interface IShoppingBasketRepository extends IAbstractRepository<ShoppingB
     ShoppingBasket findShoppingBasketByIdAndUserId(Long addId, Long userId);
     List<ShoppingBasket> findAllByUserId(Long userId);
     void deleteAllByUserId(Long userId);
+
 }

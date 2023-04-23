@@ -1,6 +1,8 @@
 package com.example.rschircoursework.controllers;
 
+import com.example.rschircoursework.model.entity.Item;
 import com.example.rschircoursework.model.entity.ItemType;
+import com.example.rschircoursework.services.IItemService;
 import com.example.rschircoursework.services.IItemTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping(value="/item_type")
-public class ItemTypeController extends AbstractController<ItemType, IItemTypeService>{
+public class ItemTypeController extends AbstractController<ItemType, IItemTypeService> {
     @Autowired
     protected ItemTypeController(IItemTypeService service) {
         super(service);

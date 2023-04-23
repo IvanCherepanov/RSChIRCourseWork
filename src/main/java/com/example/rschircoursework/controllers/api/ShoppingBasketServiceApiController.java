@@ -6,6 +6,7 @@ import com.example.rschircoursework.model.enumerations.MyValues;
 import com.example.rschircoursework.services.*;
 import com.example.rschircoursework.services.impl.EmailService;
 import com.example.rschircoursework.services.impl.UserServiceImpl;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -18,6 +19,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import static com.sun.activation.registries.LogSupport.log;
+
+@Slf4j
 @RestController
 @RequestMapping(value = "/api/shopping_basket")
 @CrossOrigin(origins = "http://localhost:3006")
@@ -214,11 +218,14 @@ public class ShoppingBasketServiceApiController extends AbstractController<Shopp
 
 
     @DeleteMapping("/remove")
-    public String removeFromShoppingBasket(@RequestParam Long purchaseId, Authentication authentication) {
-        Long userId = ((User) (((UserServiceImpl) iUserService).loadUserByUsername(authentication.getName()))).getId();
-        ShoppingBasket shoppingBasket = iShoppingBasketService.getShoppingBasketByIdAndUserId(purchaseId, userId);
+    public String removeFromShoppingBasket(@RequestParam Long itemId, @RequestParam Long userId) {
+        ShoppingBasketServiceApiController.log.info("{}, {}", itemId, userId);
+        ShoppingBasket shoppingBasket = iShoppingBasketService.getShoppingBasketByUserIdAndItemId(userId, itemId);
+        var purchaseId = 0;
+        System.out.println(shoppingBasket.toString());
         if (shoppingBasket != null && shoppingBasket.getUserId().equals(userId)) {
-            iShoppingBasketService.delete(purchaseId);
+
+            iShoppingBasketService.delete(shoppingBasket.getId());
             return "OK";
         } else {
             return "error";
@@ -226,47 +233,98 @@ public class ShoppingBasketServiceApiController extends AbstractController<Shopp
     }
 
     @PostMapping("/changeAmountPurchases")
-    public ResponseEntity<String> updatePurchase(Authentication authentication,
-                                                 @RequestParam(name = "purchaseId") Long id,
-                                                 @RequestParam(name = "amount") Integer amount) {
-        Long userId = ((User) (((UserServiceImpl) iUserService).loadUserByUsername(authentication.getName()))).getId();
-        if (iShoppingBasketService.getShoppingBasketByIdAndUserId(id, userId) != null) {
-            ShoppingBasket shoppingBasket = iShoppingBasketService.getShoppingBasketByIdAndUserId(id, userId);
+    public String updatePurchase(@RequestBody UpdatePurchaseRequest request) {
+        var id = request.getId();
+        var userId = request.getUserId();
+        var amount = request.getAmount();
+        ShoppingBasketServiceApiController.log.info("{}, {}, {}", id, userId, amount);
+        System.out.println(iShoppingBasketService.getShoppingBasketByUserIdAndItemId(userId, id));
+        if (iShoppingBasketService.getShoppingBasketByUserIdAndItemId(userId, id) != null) {
+            ShoppingBasket shoppingBasket = iShoppingBasketService.getShoppingBasketByUserIdAndItemId(userId, id);
             shoppingBasket.setAmount(amount);
             iShoppingBasketService.create(shoppingBasket);
-            return ResponseEntity.ok("Purchase amount updated successfully.");
+            return ("Purchase amount updated successfully.");
         } else {
-            return ResponseEntity.badRequest().body("Failed to update purchase amount.");
+            return ("Failed to update purchase amount.");
         }
     }
 
-    @PostMapping("/sendPurchases")
-    public ResponseEntity<String> sendPurchases(Authentication authentication,
-                                                @RequestParam(value = "address") String address,
-                                                @RequestParam(value = "telephone") String telephone) {
-        User user = ((User) (((UserServiceImpl) iUserService).loadUserByUsername(authentication.getName())));
-        String userMessage = iShoppingBasketService.createMessageForUser(iShoppingBasketService.getItemByUserId(user.getId()), user.getId());
-        String managerMessage = iShoppingBasketService.createMessageForManager(user, address, telephone, iShoppingBasketService.getItemByUserId(user.getId()));
+    public static class UpdatePurchaseRequest {
+        private Long userId;
+        private Long id;
+        private Integer amount;
 
-        Order order = new Order();
-        order.setUserId(user.getId());
-        order.setOrderTime(LocalDateTime.now());
-        order.setCostOrder(iShoppingBasketService.getTotalPrice(iShoppingBasketService.getItemByUserId(user.getId())));
-        iOrderService.create(order);
-
-        List<ShoppingBasket> tempList = iShoppingBasketService.getItemByUserId(user.getId());
-        for (ShoppingBasket shoppingBasket : tempList) {
-            OrderDetail orderDetail = new OrderDetail();
-            orderDetail.setOrderId(order.getId());
-            orderDetail.setItemId(shoppingBasket.getItemId());
-            orderDetail.setAmount(shoppingBasket.getAmount());
-            iOrderDetailServer.create(orderDetail);
+        public UpdatePurchaseRequest() {
         }
 
-        emailService.sendmail(user.getEmail(), userMessage);
-        emailService.sendmail(MyValues.EMAILMENEGER, managerMessage);
-        iShoppingBasketService.deleteAllByUserId(user.getId());
-        return ResponseEntity.ok("Purchases sent successfully.");
+        public UpdatePurchaseRequest(Long userId, Long id, Integer amount) {
+            this.userId = userId;
+            this.id = id;
+            this.amount = amount;
+        }
+
+        // Геттеры и сеттеры для полей userId, id, и amount
+
+        public Long getUserId() {
+            return userId;
+        }
+
+        public void setUserId(Long userId) {
+            this.userId = userId;
+        }
+
+        public Long getId() {
+            return id;
+        }
+
+        public void setId(Long id) {
+            this.id = id;
+        }
+
+        public Integer getAmount() {
+            return amount;
+        }
+
+        public void setAmount(Integer amount) {
+            this.amount = amount;
+        }
+    }
+
+
+    @PostMapping("/sendPurchases")
+    public String sendPurchases(@RequestParam(value = "userId") Long userId,
+                                @RequestParam(value = "address") String address,
+                                    @RequestParam(value = "telephone") String telephone) {
+        try{
+            User user = iUserService.findById(userId);
+    //        User user = ((User) (((UserServiceImpl) iUserService).loadUserByUsername(authentication.getName())));
+            String userMessage = iShoppingBasketService.createMessageForUser(iShoppingBasketService.getItemByUserId(user.getId()), user.getId());
+            String managerMessage = iShoppingBasketService.createMessageForManager(user, address, telephone, iShoppingBasketService.getItemByUserId(user.getId()));
+
+            Order order = new Order();
+            order.setUserId(user.getId());
+            order.setOrderTime(LocalDateTime.now());
+            order.setCostOrder(iShoppingBasketService.getTotalPrice(iShoppingBasketService.getItemByUserId(user.getId())));
+            iOrderService.create(order);
+
+            List<ShoppingBasket> tempList = iShoppingBasketService.getItemByUserId(user.getId());
+            for (ShoppingBasket shoppingBasket : tempList) {
+                OrderDetail orderDetail = new OrderDetail();
+                orderDetail.setOrderId(order.getId());
+                orderDetail.setItemId(shoppingBasket.getItemId());
+                orderDetail.setAmount(shoppingBasket.getAmount());
+                iOrderDetailServer.create(orderDetail);
+            }
+
+            emailService.sendmail(user.getEmail(), userMessage);
+            emailService.sendmail(MyValues.EMAILMENEGER, managerMessage);
+            iShoppingBasketService.deleteAllByUserId(user.getId());
+            return "Purchases sent successfully.";
+        } catch (Exception e) {
+            // Обработка ошибок
+            log("Error sending purchases: " + e.getMessage());
+            return "Error";
+        }
     }
 }
 

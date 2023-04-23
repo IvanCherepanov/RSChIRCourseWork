@@ -67,14 +67,46 @@ public class ItemServiceImpl extends AbstractServiceImpl<Item, IItemRepository> 
     };
 
     @Override
+    public List<Item> getItemByPetIdAndTypeIdAndBrandId(Long pId, Long Iid, Long bId) {
+        return iItemRepository.findItemByPetTypeIdAndItemTypeIdAndBrandId(pId, Iid, bId);
+    }
+
+    @Override
     public List<Item> getItemByPetIdAndTypeId(Long pId, Long Iid) {
         return iItemRepository.findItemByPetTypeIdAndItemTypeId(pId, Iid);
+    }
+
+    @Override
+    public List<Item> getItemByPetIdAndBrandId(Long pId, Long bId) {
+        return iItemRepository.findItemByPetTypeIdAndBrandId(pId, bId);
+    }
+
+    @Override
+    public List<Item> getItemByItemTypeIdAndBrandId(Long Iid, Long bId) {
+        return iItemRepository.findItemByItemTypeIdAndBrandId(Iid, bId);
+    }
+
+    @Override
+    public List<Item> getItemByBrandIdAndPetId(Long bId, Long pId) {
+        return iItemRepository.findItemByBrandIdAndPetTypeId(bId, pId);
     }
 
     @Override
     public List<Item> getItemByPetId(Long pId) {
         return iItemRepository.findItemByPetTypeId(pId);
     }
+
+    @Override
+    public List<Item> getItemByBrandId(Long bId) {
+        return iItemRepository.findItemByBrandId(bId);
+    }
+
+    @Override
+    public List<Item> getItemByItemTypeId(Long iId) {
+        return iItemRepository.findItemByItemTypeId(iId);
+    }
+
+
 
     @Override
     public List<Item> getItemContainingItemName(String name) {

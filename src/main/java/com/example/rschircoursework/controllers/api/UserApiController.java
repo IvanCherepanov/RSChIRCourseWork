@@ -121,6 +121,11 @@ public class UserApiController extends AbstractController<User, IUserService> {
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
         service.delete(id);
+    }
 
+    @GetMapping("/username")
+    public User findByUsername(@RequestParam(name = "userName") String username){
+        User user = iUserService.findUserByUsername(username);
+        return user;
     }
 }

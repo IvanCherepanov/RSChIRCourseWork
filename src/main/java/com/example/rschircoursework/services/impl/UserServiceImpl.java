@@ -43,6 +43,11 @@ public class UserServiceImpl extends AbstractServiceImpl<User, IUserRepository> 
     }
 
     @Override
+    public User findUserByUsername(String username) {
+        return iUserRepository.findUserByUsername(username);
+    }
+
+    @Override
     public User update(Long id, User entity) {
         findById(id);
         entity.setId(id);

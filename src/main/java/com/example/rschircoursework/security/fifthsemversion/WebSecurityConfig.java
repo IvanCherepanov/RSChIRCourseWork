@@ -75,6 +75,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/api/brand?sort=id",
                         "/api/user/username",
                         "/api/user/products",
+                        "/api/user/products_pag",
                         "/api/item/name",
                         "/api/item/{id}",
                         "/api/brand/{id}",

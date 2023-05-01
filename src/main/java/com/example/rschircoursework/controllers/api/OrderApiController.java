@@ -43,6 +43,8 @@ public class OrderApiController extends AbstractController<Order, IOrderService>
 
     @PostMapping("/create")
     public Order createOrder(@RequestBody Order order) {
+//        System.out.println("order input date:"+ order.getInputDate());
+//        System.out.println(order.getCostOrder());
         order.setOrderTime(iOrderService.convertDateFromString(order.getInputDate()));
         return service.create(order);
     }

@@ -22,7 +22,9 @@ public class OrderServiceImpl extends AbstractServiceImpl<Order, IOrderRepositor
 
     @Override
     public LocalDateTime convertDateFromString(String dateString) {
+        //System.out.println("dateString usual" + dateString);
         dateString = dateString.replace("T", " ");
+        //System.out.println("dateString usual converted" + dateString);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         LocalDateTime dateTime = LocalDateTime.parse(dateString, formatter);
         return dateTime;

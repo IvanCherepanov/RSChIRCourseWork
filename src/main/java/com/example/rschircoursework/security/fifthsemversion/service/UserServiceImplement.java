@@ -42,8 +42,8 @@ public class UserServiceImplement implements UserService {
     public String addNewUser(UserRegisterRequest registerRequest) {
         var first_check = userRepository.findUserByUsername(registerRequest.getName());
         var second_check = userRepository.findUserByEmail(registerRequest.getEmail());
-        System.out.println(first_check);
-        System.out.println(second_check);
+//        System.out.println(first_check);
+//        System.out.println(second_check);
         if (first_check == null && second_check.equals(Optional.empty())){
             RoleType role = defineUserRole(registerRequest.getManagerToken());
             User user = new User();
@@ -52,7 +52,7 @@ public class UserServiceImplement implements UserService {
             user.setUsername(registerRequest.getName());
             user.setRole(role.name());
             userRepository.save(user);
-            System.out.println(userRepository.findUserByUsername(registerRequest.getName()));
+//            System.out.println(userRepository.findUserByUsername(registerRequest.getName()));
             return "OK";
         }
         else if (first_check != null && second_check.equals(Optional.empty())){
@@ -67,8 +67,8 @@ public class UserServiceImplement implements UserService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         var user =  userRepository.findUserByUsername(username);
-        System.out.println(user.getUsername());
-        System.out.println(user.getRole());
+//        System.out.println(user.getUsername());
+//        System.out.println(user.getRole());
         if(user != null){
             return user;
         }

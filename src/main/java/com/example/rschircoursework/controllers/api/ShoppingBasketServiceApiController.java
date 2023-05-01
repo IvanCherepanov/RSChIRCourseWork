@@ -237,7 +237,9 @@ public class ShoppingBasketServiceApiController extends AbstractController<Shopp
         var id = request.getId();
         var userId = request.getUserId();
         var amount = request.getAmount();
-        ShoppingBasketServiceApiController.log.info("{}, {}, {}", id, userId, amount);
+        ShoppingBasketServiceApiController.log.info(
+                "{}, {}, {}, {}, {}, {}",
+                id, id.getClass(), userId,userId.getClass(), amount, amount.getClass());
         System.out.println(iShoppingBasketService.getShoppingBasketByUserIdAndItemId(userId, id));
         if (iShoppingBasketService.getShoppingBasketByUserIdAndItemId(userId, id) != null) {
             ShoppingBasket shoppingBasket = iShoppingBasketService.getShoppingBasketByUserIdAndItemId(userId, id);

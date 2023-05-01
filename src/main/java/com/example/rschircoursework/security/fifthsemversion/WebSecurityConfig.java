@@ -7,6 +7,7 @@ import com.example.rschircoursework.security.fifthsemversion.service.UserService
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -15,6 +16,11 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
@@ -30,6 +36,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/swagger-ui.html",
             "/swagger-ui/**",
             "/webjars/**",
+            "/auth",
+            "/register",
+            "/about",
             "/user/home"
     };
     private final UserService userService;
@@ -56,10 +65,25 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(AUTH_WHITELIST)
                 .permitAll()
-                .antMatchers("/auth", "/register", "/ping")
+                .antMatchers(HttpMethod.GET,
+
+                        "/api/pet/list",
+                        "/api/item_type/list",
+                        "/api/brand/list",
+                        "/load_user",
+                        "/api/brand",
+                        "/api/brand?sort=id",
+                        "/api/user/username",
+                        "/api/user/products",
+                        "/api/item/name",
+                        "/api/item/{id}",
+                        "/api/brand/{id}",
+                        "/api/order/user/{id}",
+                        "/api/orderDetail/list/{id}"
+                )
                 .permitAll()
                 // аутентифицировать данные запросы
-                .antMatchers("/user/**")
+                .antMatchers("/user/**","/api/shopping_basket/**")
                 .hasRole(USER.name())
                 .antMatchers("/api/**")
                 .hasRole(ADMIN.name())
@@ -73,10 +97,26 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticationEntryPoint(jwtAuthenticationEntryPoint)
                 .and()
                 .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                // добавляем разрешенные заголовки
+                .and()
+                .cors()
+                .configurationSource(corsConfigurationSource());
 
         // Добавляем фильтр, чтобы валидировать токен на каждый запрос
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+    }
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("*"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        configuration.setAllowedHeaders(Arrays.asList("X-Requested-With", "Origin", "Content-Type", "Accept", "Authorization"));
+        configuration.setExposedHeaders(Arrays.asList("Authorization"));
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
     }
 

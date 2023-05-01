@@ -70,7 +70,7 @@ public class UserServiceImpl extends AbstractServiceImpl<User, IUserRepository> 
 
     @Override
     public void create(String email,String username,String password, String role) {
-        System.out.println("on 4 create");
+        //System.out.println("on 4 create");
         User user = new User();
         user.setPassword(bCryptPasswordEncoder.encode(password));
         user.setEmail(email);

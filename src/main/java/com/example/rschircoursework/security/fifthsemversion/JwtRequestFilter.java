@@ -31,14 +31,15 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
 
         String authorizationHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
-        System.out.println(authorizationHeader);
+        //System.out.println("All Headers: " + request.get);
+        System.out.println("authorizationHeader: " + authorizationHeader);
         if (authorizationHeader == null
                 || !authorizationHeader.startsWith(jwtConfig.getTokenPrefix())) {
             filterChain.doFilter(request, response);
             return;
         }
         String token = authorizationHeader.replace(jwtConfig.getTokenPrefix(), "");
-        System.out.println(token);
+        System.out.println("authorizationToken: " + token);
         try {
             System.out.println("to try block");
             String username = jwtTokenUtil.getUsernameFromToken(token);

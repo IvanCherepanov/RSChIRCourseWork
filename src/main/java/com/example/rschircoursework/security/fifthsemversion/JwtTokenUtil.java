@@ -33,7 +33,7 @@ public class JwtTokenUtil {
     }
 
     public String getUsernameFromToken(String token) {
-        System.out.println("JwTTOKENUTIL");
+        System.out.println("TOKEN_UTIL");
         System.out.println(token);
         Jws<Claims> claimsJws =
                 Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(token);

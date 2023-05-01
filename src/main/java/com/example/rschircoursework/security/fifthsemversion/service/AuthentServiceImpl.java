@@ -21,9 +21,9 @@ public class AuthentServiceImpl implements IAuthService{
 
     @Override
     public String authenticate(UserCredentials userCredentials) {
-        System.out.println("AuthServiceImpl");
-        System.out.println(userCredentials.getEmail());
-        System.out.println(userCredentials.getPassword());
+//        System.out.println("AuthServiceImpl");
+//        System.out.println(userCredentials.getEmail());
+//        System.out.println(userCredentials.getPassword());
         try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(

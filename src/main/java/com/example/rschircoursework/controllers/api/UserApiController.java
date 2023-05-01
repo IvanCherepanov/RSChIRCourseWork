@@ -111,9 +111,9 @@ public class UserApiController extends AbstractController<User, IUserService> {
     public User update(@PathVariable Long id, @RequestBody User user) {
         User existingUser = iUserService.findById(id);
         existingUser.setUsername(user.getUsername());
-        existingUser.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        //existingUser.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         existingUser.setEmail(user.getEmail());
-        existingUser.setRole(user.getRole());
+        //existingUser.setRole(user.getRole());
         return service.update(id, existingUser);
 
     }

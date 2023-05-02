@@ -24,7 +24,7 @@ import static com.sun.activation.registries.LogSupport.log;
 @Slf4j
 @RestController
 @RequestMapping(value = "/api/shopping_basket")
-@CrossOrigin(origins = "http://localhost:3006")
+@CrossOrigin(origins = {"http://frontpart:3000", "http://localhost:3000","http://frontpart:3006", "http://localhost:3006"})
 public class ShoppingBasketServiceApiController extends AbstractController<ShoppingBasket, IShoppingBasketService> {
     private IItemService iItemService;
     private IUserService iUserService;

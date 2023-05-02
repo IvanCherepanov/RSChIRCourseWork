@@ -28,6 +28,12 @@ import java.util.Arrays;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private static final String[] AUTH_WHITELIST = {
             // -- Swagger UI v2
+            "/authenticate",
+            "/swagger-resources/**",
+            "/swagger-ui/**",
+            "/v3/api-docs",
+            "/webjars/**",
+            "/api/v2/api-docs",
             "/v2/api-docs",
             "/swagger-resources",
             "/swagger-resources/**",

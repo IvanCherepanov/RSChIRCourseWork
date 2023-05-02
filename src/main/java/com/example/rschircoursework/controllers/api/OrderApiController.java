@@ -17,7 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/order")
-@CrossOrigin(origins = "http://localhost:3006")
+@CrossOrigin(origins = {"http://frontpart:3000", "http://localhost:3000","http://frontpart:3006", "http://localhost:3006"})
 public class OrderApiController extends AbstractController<Order, IOrderService> {
     private IOrderService iOrderService;
     private IUserService iUserService;

@@ -3,6 +3,8 @@ package com.example.rschircoursework.controllers.api;
 import com.example.rschircoursework.controllers.AbstractController;
 import com.example.rschircoursework.model.entity.ItemType;
 import com.example.rschircoursework.services.IItemTypeService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,11 +32,13 @@ public class ItemTypeApiController extends AbstractController<ItemType, IItemTyp
     }
 
     @PostMapping("/create")
+    @Operation(summary = "My endpoint", security = @SecurityRequirement(name = "apikeyAuth"))
     public ItemType createItemType(@RequestBody ItemType itemType) {
         return service.create(itemType);
     }
 
     @PutMapping("/{id}")
+    @Operation(summary = "My endpoint", security = @SecurityRequirement(name = "apikeyAuth"))
     public ItemType update(@PathVariable Long id, @RequestBody ItemType itemType) {
         ItemType existingItemType = service.findById(id);
         existingItemType.setItemTypeName(itemType.getItemTypeName());
@@ -42,6 +46,7 @@ public class ItemTypeApiController extends AbstractController<ItemType, IItemTyp
     }
 
     @DeleteMapping("/{id}")
+    @Operation(summary = "My endpoint", security = @SecurityRequirement(name = "apikeyAuth"))
     public void delete(@PathVariable Long id) {
         service.delete(id);
     }

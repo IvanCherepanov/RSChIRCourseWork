@@ -3,6 +3,8 @@ package com.example.rschircoursework.controllers.api;
 import com.example.rschircoursework.controllers.AbstractController;
 import com.example.rschircoursework.model.entity.Item;
 import com.example.rschircoursework.services.*;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -50,11 +52,13 @@ public class ItemApiController extends AbstractController<Item, IItemService> {
     }
 
     @PostMapping("/create")
+    @Operation(summary = "My endpoint", security = @SecurityRequirement(name = "apikeyAuth"))
     public Item saveItem(@RequestBody Item item) {
         return iItemService.create(item);
     }
 
     @PutMapping("/{id}")
+    @Operation(summary = "My endpoint", security = @SecurityRequirement(name = "apikeyAuth"))
     public Item update(@PathVariable Long id,
                            @RequestBody Item item) {
         Item existingItem = iItemService.findById(id);
@@ -70,6 +74,7 @@ public class ItemApiController extends AbstractController<Item, IItemService> {
     }
 
     @DeleteMapping("/{id}")
+    @Operation(summary = "My endpoint", security = @SecurityRequirement(name = "apikeyAuth"))
     public void delete(@PathVariable Long id) {
         iItemService.delete(id);
     }

@@ -6,6 +6,8 @@ import com.example.rschircoursework.model.enumerations.MyValues;
 import com.example.rschircoursework.services.*;
 import com.example.rschircoursework.services.impl.EmailService;
 import com.example.rschircoursework.services.impl.UserServiceImpl;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -54,6 +56,7 @@ public class ShoppingBasketServiceApiController extends AbstractController<Shopp
     }
 
     @PostMapping("/addPurchase")
+    @Operation(summary = "My endpoint", security = @SecurityRequirement(name = "apikeyAuth"))
     public String addPurchase(@RequestBody ShoppingBasketRequest request) {
         var userId = request.getUserId();
         System.out.println(request);
@@ -123,6 +126,7 @@ public class ShoppingBasketServiceApiController extends AbstractController<Shopp
     }
 
     @GetMapping("/get")
+    @Operation(summary = "My endpoint", security = @SecurityRequirement(name = "apikeyAuth"))
     public ResponseEntity<?> getShoppingBasket(@RequestParam Long userId) {
         List<ShoppingBasket> shoppingBasketItems = iShoppingBasketService.getItemByUserId(userId);
         if (shoppingBasketItems.isEmpty()) {
@@ -218,6 +222,7 @@ public class ShoppingBasketServiceApiController extends AbstractController<Shopp
 
 
     @DeleteMapping("/remove")
+    @Operation(summary = "My endpoint", security = @SecurityRequirement(name = "apikeyAuth"))
     public String removeFromShoppingBasket(@RequestParam Long itemId, @RequestParam Long userId) {
         ShoppingBasketServiceApiController.log.info("{}, {}", itemId, userId);
         ShoppingBasket shoppingBasket = iShoppingBasketService.getShoppingBasketByUserIdAndItemId(userId, itemId);
@@ -233,6 +238,7 @@ public class ShoppingBasketServiceApiController extends AbstractController<Shopp
     }
 
     @PostMapping("/changeAmountPurchases")
+    @Operation(summary = "My endpoint", security = @SecurityRequirement(name = "apikeyAuth"))
     public String updatePurchase(@RequestBody UpdatePurchaseRequest request) {
         var id = request.getId();
         var userId = request.getUserId();
@@ -294,6 +300,7 @@ public class ShoppingBasketServiceApiController extends AbstractController<Shopp
 
 
     @PostMapping("/sendPurchases")
+    @Operation(summary = "My endpoint", security = @SecurityRequirement(name = "apikeyAuth"))
     public String sendPurchases(@RequestParam(value = "userId") Long userId,
                                 @RequestParam(value = "address") String address,
                                     @RequestParam(value = "telephone") String telephone) {

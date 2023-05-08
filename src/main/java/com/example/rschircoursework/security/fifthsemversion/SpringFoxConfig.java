@@ -1,15 +1,24 @@
 //package com.example.rschircoursework.security.fifthsemversion;
 //
+//import org.springframework.http.HttpHeaders;
+//
 //import org.springframework.context.annotation.Bean;
 //import org.springframework.context.annotation.Configuration;
+//import springfox.documentation.swagger2.annotations.EnableSwagger2;
+//
 //import springfox.documentation.builders.PathSelectors;
 //import springfox.documentation.builders.RequestHandlerSelectors;
-//import springfox.documentation.service.*;
-//import org.springframework.http.HttpHeaders;
+//import springfox.documentation.service.ApiInfo;
+//import springfox.documentation.service.ApiKey;
+//import springfox.documentation.service.AuthorizationScope;
+//import springfox.documentation.service.Contact;
+//import springfox.documentation.service.SecurityReference;
+//import springfox.documentation.service.VendorExtension;
 //import springfox.documentation.spi.DocumentationType;
 //import springfox.documentation.spi.service.contexts.SecurityContext;
 //import springfox.documentation.spring.web.plugins.Docket;
 //import springfox.documentation.swagger2.annotations.EnableSwagger2;
+//
 //
 //
 //import java.util.Arrays;
@@ -19,7 +28,7 @@
 //@Configuration
 //@EnableSwagger2
 //public class SpringFoxConfig {
-//    public static final String AUTHORIZATION_HEADER = "Authorization";
+//    public static final String DEFAULT_INCLUDE_PATTERN = "/.*";
 //
 //    private ApiInfo apiInfo() {
 //        return new ApiInfo("MyApp Rest APIs",
@@ -42,7 +51,7 @@
 //                .useDefaultResponseMessages(false)
 //                .select()
 //                .paths(PathSelectors.any())
-//                .apis(RequestHandlerSelectors.basePackage(("com.example.rschircoursework.controllers")))
+//                .apis(RequestHandlerSelectors.basePackage(("com.example.rschircoursework")))
 //                .build();
 //    }
 //

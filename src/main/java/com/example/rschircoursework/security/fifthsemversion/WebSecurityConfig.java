@@ -28,6 +28,7 @@ import java.util.Arrays;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private static final String[] AUTH_WHITELIST = {
             // -- Swagger UI v2
+            "/v3/api-docs/**",
             "/authenticate",
             "/swagger-resources/**",
             "/swagger-ui/**",
@@ -85,6 +86,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/api/item/name",
                         "/api/item/{id}",
                         "/api/brand/{id}",
+                        "/api/pet/{id}",
+                        "/api/item_type/{id}",
                         "/api/order/user/{id}",
                         "/api/orderDetail/list/{id}"
                 )
@@ -92,7 +95,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // аутентифицировать данные запросы
                 .antMatchers("/user/**","/api/shopping_basket/**")
                 .hasRole(USER.name())
-                .antMatchers("/api/**")
+                .antMatchers("/api/**", "/api/user/{id}")
                 .hasRole(ADMIN.name())
                 .antMatchers("/shopping_basket/*")
                 .hasAnyRole(ADMIN.name(), USER.name())

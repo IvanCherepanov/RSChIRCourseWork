@@ -7,6 +7,8 @@ import com.example.rschircoursework.services.IItemService;
 import com.example.rschircoursework.services.IItemTypeService;
 import com.example.rschircoursework.services.IPetService;
 import com.example.rschircoursework.services.IUserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -208,11 +210,13 @@ public class UserApiController extends AbstractController<User, IUserService> {
     }
 
     @PostMapping("/create")
+    @Operation(summary = "My endpoint", security = @SecurityRequirement(name = "apikeyAuth"))
     public void createUser(@RequestBody User user) {
         service.create(user.getUsername(), user.getPassword(), user.getEmail(), user.getRole());
     }
 
     @PutMapping("/{id}")
+    @Operation(summary = "My endpoint", security = @SecurityRequirement(name = "apikeyAuth"))
     public User update(@PathVariable Long id, @RequestBody User user) {
         User existingUser = iUserService.findById(id);
         existingUser.setUsername(user.getUsername());
@@ -224,6 +228,7 @@ public class UserApiController extends AbstractController<User, IUserService> {
     }
 
     @DeleteMapping("/{id}")
+    @Operation(summary = "My endpoint", security = @SecurityRequirement(name = "apikeyAuth"))
     public void delete(@PathVariable Long id) {
         service.delete(id);
     }

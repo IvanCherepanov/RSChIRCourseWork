@@ -8,6 +8,8 @@ import com.example.rschircoursework.services.IOrderService;
 import com.example.rschircoursework.services.IPetService;
 import com.example.rschircoursework.services.IUserService;
 import com.example.rschircoursework.services.impl.UserServiceImpl;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,6 +44,7 @@ public class OrderApiController extends AbstractController<Order, IOrderService>
     }
 
     @PostMapping("/create")
+    @Operation(summary = "My endpoint", security = @SecurityRequirement(name = "apikeyAuth"))
     public Order createOrder(@RequestBody Order order) {
 //        System.out.println("order input date:"+ order.getInputDate());
 //        System.out.println(order.getCostOrder());
@@ -50,6 +53,7 @@ public class OrderApiController extends AbstractController<Order, IOrderService>
     }
 
     @PutMapping("/{id}")
+    @Operation(summary = "My endpoint", security = @SecurityRequirement(name = "apikeyAuth"))
     public Order update(@PathVariable Long id,
                              @RequestBody Order order) {
         Order existingOrder = service.findById(id);
@@ -58,6 +62,7 @@ public class OrderApiController extends AbstractController<Order, IOrderService>
     }
 
     @DeleteMapping("/{id}")
+    @Operation(summary = "My endpoint", security = @SecurityRequirement(name = "apikeyAuth"))
     public void delete(@PathVariable Long id) {
         service.delete(id);
     }

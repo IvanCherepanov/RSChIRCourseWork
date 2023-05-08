@@ -3,6 +3,8 @@ package com.example.rschircoursework.controllers.api;
 import com.example.rschircoursework.controllers.AbstractController;
 import com.example.rschircoursework.model.entity.Pet;
 import com.example.rschircoursework.services.IPetService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,11 +34,13 @@ public class PetApiController extends AbstractController<Pet, IPetService> {
     }
 
     @PostMapping("/create")
+    @Operation(summary = "My endpoint", security = @SecurityRequirement(name = "apikeyAuth"))
     public Pet createPet(@RequestBody Pet pet) {
         return service.create(pet);
     }
 
     @PutMapping("/{id}")
+    @Operation(summary = "My endpoint", security = @SecurityRequirement(name = "apikeyAuth"))
     public Pet update(@PathVariable Long id, @RequestBody Pet pet) {
         Pet existingPet = service.findById(id);
         existingPet.setPetName(pet.getPetName());
@@ -44,6 +48,7 @@ public class PetApiController extends AbstractController<Pet, IPetService> {
     }
 
     @DeleteMapping("/{id}")
+    @Operation(summary = "My endpoint", security = @SecurityRequirement(name = "apikeyAuth"))
     public void delete(@PathVariable Long id) {
         service.delete(id);
     }
